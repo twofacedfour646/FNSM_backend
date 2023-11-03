@@ -14,6 +14,7 @@ public class EventItemRepository {
     public EventItemRepository() {
         events.add(new EventItem(UUID.randomUUID().toString(), "ICE BREAKING CRANE", 15, "Harlem"));
         events.add(new EventItem(UUID.randomUUID().toString(), "F.E.A.S.T TOYS STOLEN", 10, "Harlem"));
+        events.add(new EventItem(UUID.randomUUID().toString(), "Lost Cat", 20, "Harlem"));
     }
 
     public List<EventItem> findAll() {
