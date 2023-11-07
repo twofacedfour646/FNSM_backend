@@ -6,14 +6,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-class LoginRequestBody {
-    String username;
-    String password;
-}
+record LoginRequestBody(String username, String password) {}
 
-record LoginResponse(String text) {
-
-}
+record LoginResponse(String response) {}
 
 @RestController
 @RequestMapping("/users")
@@ -33,8 +28,13 @@ public class UserController {
     @PostMapping("/login")
     @ResponseBody
     public LoginResponse handleLogin(@RequestBody LoginRequestBody request) {
-        System.out.println(request.username);
-        System.out.println(request.password);
-        return new LoginResponse("This is a test token");
+        // Deconstruct request
+        String enteredUsername = request.username();
+        String enteredPassword = request.password();
+
+        // Get return of login method
+        String loginResult = this.repository.loginUser(enteredUsername, enteredPassword);
+
+        return new LoginResponse(loginResult);
     }
 }

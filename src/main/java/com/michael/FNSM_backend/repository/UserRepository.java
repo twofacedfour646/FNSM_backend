@@ -2,7 +2,6 @@ package com.michael.FNSM_backend.repository;
 
 import com.michael.FNSM_backend.model.User;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,8 +21,29 @@ public class UserRepository {
         return users;
     }
 
+    // Get user by username
+    public User findByUsername(String username) {
+        return users.stream().filter(user -> user.username().equals(username)).findFirst().orElse(null);
+    }
+
     // Login user
     public String loginUser(String username, String password) {
+        // Validate data
+        if (username.isEmpty() || password.isEmpty()) return "Username or password is empty";
+
+        // Find user by username
+        User user = findByUsername(username);
+        if (user == null) return "User does not exist";
+
+        // Check if passwords match
+        if (!user.password().equals(password)) return "Password is incorrect";
+
+        // Generate token
+        // Send token
+        return username + " and " + password + " bitch!";
+    }
+
+    private String generateUserToken(User user) {
         return null;
     }
 }
